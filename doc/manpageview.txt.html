@@ -1,0 +1,505 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>~/.vim/doc/manpageview.txt.html</title>
+<meta name="Generator" content="Vim/7.3">
+<meta name="plugin-version" content="vim7.3_v6">
+<meta name="syntax" content="help">
+<meta name="settings" content="use_css">
+<style type="text/css">
+<!--
+pre { font-family: monospace; color: #00ff00; background-color: #000080; }
+body { font-family: monospace; color: #00ff00; background-color: #000080; }
+.Comment { color: #ffffff; }
+.Special { color: #00ff00; background-color: #0000ff; }
+.Ignore { color: #000080; }
+.Statement { color: #00ffff; background-color: #000080; }
+.Subtitle { color: #ff00ff; background-color: #000080; }
+.Delimiter { color: #ffffff; background-color: #000080; }
+.PreProc { color: #ffffff; background-color: #0000cd; }
+.String { color: #ffff00; background-color: #000080; }
+-->
+</style>
+</head>
+<body>
+<pre>
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=315209; 
+var sc_partition=1; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/free_hit_counter.html" target="_blank"><img  src="http://c2.statcounter.com/counter.php?sc_project=315209&amp;amp;java=0" alt="free page hit counter" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+<span class="String">manpageview.txt</span>       <span class="PreProc">Man Page Viewer</span><span class="PreProc">                </span><span class="Delimiter">Mar</span><span class="PreProc"> </span><span class="Delimiter">29,</span><span class="PreProc"> </span><span class="Delimiter">2011</span>
+
+Author:  Charles E. Campbell, Jr.  &lt;NdrchipO@ScampbellPfamily.AbizM&gt;
+          (remove NOSPAM from Campbell's email first)
+Copyright: (c) 2004-2011 by Charles E. Campbell, Jr.    <span class="String">manpageview-copyright</span>
+           The VIM LICENSE applies to ManPageView.vim and ManPageView.txt
+           (see <span class="Subtitle">copyright</span>) except use &quot;ManPageView&quot; instead of &quot;Vim&quot;
+           no warranty, express or implied.  use at-your-own-risk.
+
+<span class="PreProc">==============================================================================</span>
+<span class="Statement">1.</span><span class="PreProc"> Contents</span>                <span class="String">manpageview</span><span class="PreProc"> </span><span class="String">manpageview-contents</span> <span class="Ignore">{{{1</span>
+
+        1. Contents.................................: <span class="Subtitle">manpageview-contents</span>
+        2. ManPageView Usage........................: <span class="Subtitle">manpageview-usage</span>
+             General Format.........................: <span class="Subtitle">manpageview-format</span>
+             Man....................................: <span class="Subtitle">manpageview-man</span>
+             Opening Style..........................: <span class="Subtitle">manpageview-open</span>
+             K Map..................................: <span class="Subtitle">manpageview-K</span>
+             Perl...................................: <span class="Subtitle">manpageview-perl</span>
+             Info...................................: <span class="Subtitle">manpageview-info</span>
+             Php....................................: <span class="Subtitle">manpageview-php</span>
+             Extending ManPageView..................: <span class="Subtitle">manpageview-extend</span>
+             Manpageview Suggestion.................: <span class="Subtitle">manpageview-suggest</span>
+        3. ManPageView Options......................: <span class="Subtitle">manpageview-options</span>
+        4. ManPageView History......................: <span class="Subtitle">manpageview-history</span>
+
+<span class="PreProc">==============================================================================</span>
+<span class="Statement">2.</span><span class="PreProc"> ManPageView Usage</span>                     <span class="String">manpageview-usage</span> <span class="Ignore">{{{1</span>
+
+        GENERAL FORMAT                 <span class="String">manpageview-format</span> <span class="Ignore">{{{2</span>
+
+               (command) :<span class="Special">[count]</span>[HORV]Man <span class="Special">[topic]</span> <span class="Special">[booknumber]</span>
+               (map)     <span class="Special">[count]</span>K
+
+        MAN                                     <span class="String">manpageview-man</span> <span class="Ignore">{{{2</span>
+<span class="Ignore">&gt;</span>
+<span class="Comment">        :[count]Man topic</span>
+<span class="Comment">        :Man topic booknumber</span>
+<span class="Comment">        :Man booknumber topic</span>
+<span class="Comment">        :Man topic(booknumber)</span>
+<span class="Comment">        :Man      -- will restore position prior to use of :Man</span>
+<span class="Comment">                     (only for g:manpageview_winopen == &quot;only&quot;)</span>
+<span class="Ignore">&lt;</span>
+        Put cursor on topic, press &quot;K&quot; while in normal mode.
+        (This works if (a) you've not mapped some other key
+        to <span class="Special">&lt;Plug&gt;</span>ManPageView, and (b) if <span class="Subtitle">'keywordprg'</span> is &quot;man&quot;,
+        which it is by default)
+
+        If a count is present (ie. 7K), the count will be used
+        as the booknumber.
+
+        If your &quot;man&quot; command requires options, you may specify them
+        with the g:manpageview_options variable in your &lt;.vimrc&gt;.
+
+
+        OPENING STYLE                   <span class="String">manpageview-open</span> <span class="Ignore">{{{2</span>
+
+        In addition, one may specify open help and specify an
+        opening style (see g:manpageview_winopen below):<span class="Ignore"> &gt;</span>
+
+<span class="Comment">               :[count]HMan topic     -- g:manpageview_winopen= &quot;hsplit&quot;</span>
+<span class="Comment">               :[count]HEMan topic    -- g:manpageview_winopen= &quot;hsplit=&quot;</span>
+<span class="Comment">               :[count]VMan topic     -- g:manpageview_winopen= &quot;vsplit&quot;</span>
+<span class="Comment">               :[count]VEMan topic    -- g:manpageview_winopen= &quot;vsplit=&quot;</span>
+<span class="Comment">               :[count]OMan topic     -- g:manpageview_winopen= &quot;osplit&quot;</span>
+<span class="Comment">               :[count]RMan topic     -- g:manpageview_winopen= &quot;reuse&quot;</span>
+<span class="Ignore">&lt;</span>
+        To support perl, manpageview now can switch to using perldoc
+        instead of man.  In fact, the facility is generalized to
+        allow multiple help viewing systems.
+
+        INFO                            <span class="String">manpageview-info</span> <span class="Ignore">{{{2</span>
+
+        Info pages are supported by appending a &quot;.i&quot; suffix:<span class="Ignore"> &gt;</span>
+<span class="Comment">               :Man info.i</span>
+<span class="Ignore">&lt;</span>       A number of maps are provided:<span class="Ignore"> &gt;</span>
+<span class="Comment">               MAP     EFFECT</span>
+<span class="Comment">               &gt; n     go to next node</span>
+<span class="Comment">               &lt; p     go to previous node</span>
+<span class="Comment">               d       go to the top-level directory</span>
+<span class="Comment">               u       go to up node</span>
+<span class="Comment">               t       go to top node</span>
+<span class="Comment">               H       give help</span>
+<span class="Comment">               i       ask for &quot;index&quot; help</span>
+<span class="Comment">               &lt;bs&gt;    go up one page</span>
+<span class="Comment">               &lt;del&gt;   go up one page</span>
+<span class="Comment">               &lt;tab&gt;   go to next hyperlink</span>
+<span class="Ignore">&lt;</span>
+        The &quot;index&quot; help isn't currently using index information; instead,
+        its doing some searching in the various info files.  The &quot;,&quot; and &quot;;&quot;
+        operators are provided to go to the next and previous matches,
+        respectively.
+
+        K MAP                          <span class="String">manpageview-K</span> <span class="Ignore">{{{2</span>
+<span class="Ignore">&gt;</span>
+<span class="Comment">               [count]K</span>
+<span class="Ignore">&lt;</span>
+        ManPageView also supports the use of &quot;K&quot;, as a map, to
+        invoke ManPageView.  The topic is taken from the word
+        currently under the cursor.  If a <span class="Special">[count]</span> is present, it
+        will be used as the booknumber.
+
+        PERL                            <span class="String">manpageview-perl</span> <span class="Ignore">{{{2</span>
+
+        For perl, the following command,<span class="Ignore"> &gt;</span>
+<span class="Comment">               :Man sprintf.pl</span>
+<span class="Ignore">&lt;</span>       will bring up the perldoc version of sprintf.  The perl
+        support includes a &quot;path&quot; of options to use with perldoc:<span class="Ignore"> &gt;</span>
+<span class="Comment">               g:manpageview_options_pl= &quot;;-f;-q&quot;</span>
+<span class="Ignore">&lt;</span>       Thus just the one suffix (.pl) with manpageview handles
+        embedded perl documentation, perl builtin functions, and
+        perl FAQ keywords.
+
+        If the filetype is &quot;perl&quot;, which is determined by vim
+        for syntax highlighting, the &quot;.pl&quot; suffix may be dropped.
+        For example, when editing a &quot;abc.pl&quot; file,<span class="Ignore"> &gt;</span>
+<span class="Comment">               :Man sprintf</span>
+<span class="Ignore">&lt;</span>       will return the perl help for sprintf.
+
+        PHP                              <span class="String">manpageview-php</span> <span class="Ignore">{{{2</span>
+
+        For php help, Manpageview uses links to get help from
+        <span class="String"><a href="http://www.php.net">http://www.php.net</a></span> (by default).  The filetype as determined
+        for syntax highlighting is used to signal manpageview to use
+        php help.  As an example,<span class="Ignore"> &gt;</span>
+<span class="Comment">               :Man bzopen.php</span>
+<span class="Ignore">&lt;</span>       will get help for php's bzopen command.  When one is editing
+        a php file, then man will default to getting help for php
+        (ie. when the filetype is php, :Man bzopen will get the help
+        for php's bzopen).
+
+        Manpageview uses &quot;links -dump <span class="String"><a href="http://www.php.net/TOPIC">http://www.php.net/TOPIC</a></span>&quot; by
+        default; hence, to obtain help for php you need to have a
+        copy of the links WWW browser.  The homepage for Elinks is
+        <span class="String"><a href="http://elinks.cz/">http://elinks.cz/</a></span>.
+
+        PYTHON                        <span class="String">manpageview-python</span>
+
+        For python help, Manpageview depends upon pydoc.  As an
+        example, try<span class="Ignore"> &gt;</span>
+<span class="Comment">               :Man pprint.py</span>
+<span class="Ignore">&lt;</span>
+
+        EXTENDING MANPAGEVIEW            <span class="String">manpageview-extend</span> <span class="Ignore">{{{2</span>
+
+        To extend manpageview to handle other documentation systems,
+        manpageview has some special variables with a common extension:<span class="Ignore"> &gt;</span>
+
+<span class="Comment">               g:manpageview_pgm_{ext}</span>
+<span class="Comment">               g:manpageview_options_{ext}</span>
+<span class="Comment">               g:manpageview_sfx_{ext}</span>
+<span class="Ignore">&lt;</span>
+        For perl, the <span class="Special">{ext}</span> is &quot;.pl&quot;, and the variables are set to:<span class="Ignore"> &gt;</span>
+
+<span class="Comment">             let g:manpageview_pgm_pl     = &quot;perldoc&quot;</span>
+<span class="Comment">             let g:manpageview_options_pl = &quot;;-f;-q&quot;</span>
+<span class="Ignore">&lt;</span>
+        For info, that <span class="Special">{ext}</span> is &quot;.i&quot;, and the extension variables are
+        set to:<span class="Ignore"> &gt;</span>
+
+<span class="Comment">             let g:manpageview_pgm_i     = &quot;info&quot;</span>
+<span class="Comment">             let g:manpageview_options_i = &quot;--output=-&quot;</span>
+<span class="Comment">             let g:manpageview_syntax_i  = &quot;info&quot;</span>
+<span class="Comment">             let g:manpageview_K_i       = &quot;&lt;sid&gt;ManPageInfo(0)&quot;</span>
+<span class="Comment">             let g:manpageview_init_i    = &quot;call ManPageInfoInit()&quot;</span>
+<span class="Ignore">&lt;</span>
+        The help on <span class="Subtitle">manpageview_extend</span> covers these variables in more
+        detail.
+
+        MULTIPLE MAN PAGES           <span class="String">manpageview-pageup</span> <span class="String">manpageview-pagedown</span>
+
+        With<span class="Ignore"> &gt;</span>
+<span class="Comment">               man -a topic</span>
+<span class="Ignore">&lt;</span>       one may get multiple man pages in a single buffer.  Manpageview
+        provides two maps to facilitate moving amongst these pages:<span class="Ignore"> &gt;</span>
+
+<span class="Comment">               PageUp  : move to preceding  manpage</span>
+<span class="Comment">               PageDown: move to succeeding manpage</span>
+<span class="Ignore">&lt;</span>
+        MANPAGEVIEW SUGGESTION   <span class="String">manpageview-suggest</span>
+
+        As an example, for C: put in .vim/ftplugin/c/c.vim:<span class="Ignore"> &gt;</span>
+<span class="Comment">               nno &lt;buffer&gt; K  :&lt;c-u&gt;exe v:count.&quot;Man &quot;.expand(&quot;&lt;cword&gt;&quot;)&lt;cr&gt;</span>
+<span class="Ignore">&lt;</span>       This map allows K to immediately use manpageview with functions in a
+        C program.  One may make similar maps for other languages, of course,
+        or simply put the map in one's &lt;.vimrc&gt;.
+
+
+
+<span class="PreProc">==============================================================================</span>
+<span class="Statement">3.</span><span class="PreProc"> ManPageView Options</span>                 <span class="String">manpageview-options</span> <span class="Ignore">{{{1</span>
+
+                                           <span class="String">g:manpageview_iconv</span>
+        g:manpageview_iconv   : some systems seem to include unwanted
+                   characters. The iconv program can be used to filter out
+                   such characters; by default, manpageview will use<span class="Ignore"> &gt;</span>
+<span class="Comment">                      iconv -c</span>
+<span class="Ignore">&lt;</span>                 You may avoid manpageview's use of iconv by putting:<span class="Ignore"> &gt;</span>
+<span class="Comment">                      let g:manpageview_iconv= &quot;&quot;</span>
+<span class="Ignore">&lt;</span>                 in your &lt;.vimrc&gt; file; you may also specify any other
+                   filter you wish with this variable.  Also, if iconv
+                   happens to not be <span class="Subtitle">executable()</span>, then no filtering
+                   will be done.  (Thanks to Matthew Wozniski).
+
+                   As an example, Hong Xu reports that he has found that<span class="Ignore"> &gt;</span>
+<span class="Comment">                     let g:manpageview_iconv= &quot;iconv -c UTF-8 -t UTF-8&quot;</span>
+<span class="Ignore">&lt;</span>                 useful when using NetBSD.
+
+                                           <span class="String">g:manpageview_multimanpage</span>
+        g:manpageview_multimanpage (=1 by default)
+                   This option means that the PageUp and PageDown keys
+                   will be mapped to move to the next and previous manpage
+                   in a multi-man-page buffer.  Such buffers result with
+                   the &quot;man -a&quot; option.  As an example:<span class="Ignore"> &gt;</span>
+<span class="Comment">                       :Man -a printf</span>
+<span class="Ignore">&lt;</span>
+                                           <span class="String">g:manpageview_options</span>
+        g:manpageview_options : extra options that will be passed on when
+                                invoking the man command
+          examples:
+                    let g:manpageview_options= &quot;-P 'cat -'&quot;
+                    let g:manpageview_options= &quot;-c&quot;
+                    let g:manpageview_options= &quot;-Tascii&quot;
+
+                                           <span class="String">g:manpageview_pgm</span>
+        g:manpageview_pgm : by default, its &quot;man&quot;, but it may be changed
+                    by the user.  This program is what is called to actually
+                    extract the manpage.
+
+                                           <span class="String">g:manpageview_winopen</span>
+        g:manpageview_winopen : may take on one of six values:
+
+           &quot;only&quot;    man page will become sole window.
+                     Side effect: All windows' contents will be saved first!
+                    (windo w) Use :q to terminate the manpage and restore the
+                    window setup.  Note that mksession is used for this
+                    option, hence the +mksession configure-option is required.
+           &quot;hsplit&quot;  man page will appear in a horizontally          split window (default)
+           &quot;vsplit&quot;  man page will appear in a vertically            split window
+           &quot;hsplit=&quot; man page will appear in a horizontally &amp; evenly split window
+           &quot;vsplit=&quot; man page will appear in a vertically   &amp; evenly split window
+           &quot;reuse&quot;   man page will re-use current window.  Use <span class="Special">&lt;ctrl-o&gt;</span> to return.
+                     (for the reuse option, thanks go to Alan Schmitt)
+
+                             <span class="String">g:manpageview_server</span> <span class="String">g:manpgeview_user</span>
+
+        g:manpageview_server : for WinNT; uses rsh to read manpage remotely
+        g:manpageview_user   : use given server (host) and username
+          examples:
+                    let g:manpageview_server= &quot;somehostname&quot;
+                    let g:manpageview_user  = &quot;username&quot;
+
+        <span class="String">g:manpageview_init_EXT</span> <span class="String">g:manpageview_K_EXT</span>   <span class="String">g:manpageview_options_EXT</span>
+        <span class="String">g:manpageview_pfx_EXT</span>  <span class="String">g:manpageview_pgm_EXT</span> <span class="String">g:manpageview_sfx_EXT</span>
+        <span class="String">g:manpageview_syntax_EXT</span>
+        g:manpageview_init_<span class="Special">{ext}</span>:                    <span class="String">manpageview_extend</span>
+        g:manpageview_K_<span class="Special">{ext}</span>:
+        g:manpageview_options_<span class="Special">{ext}</span>:
+        g:manpageview_pfx_<span class="Special">{ext}</span>:
+        g:manpageview_pgm_<span class="Special">{ext}</span>:
+        g:manpageview_sfx_<span class="Special">{ext}</span>:
+        g:manpageview_syntax_<span class="Special">{ext}</span>:
+
+               With these options, one may specify an extension on a topic
+               and have a special program and customized options for that
+               program used instead of man itself.  As an example, consider
+               perl:<span class="Ignore"> &gt;</span>
+
+<span class="Comment">                      let g:manpageview_pgm_pl = &quot;perldoc&quot;</span>
+<span class="Comment">                      let g:manpageview_options= &quot;;-f;-q&quot;</span>
+<span class="Ignore">&lt;</span>
+               Note that, for perl, the options consist of a sequence of
+               options to be tried, separated by semi-colons.
+
+               The g:manpageview_init_<span class="Special">{ext}</span> specifies a function to be called
+               for initialization.  The info handler, for example, uses this
+               function to specify buffer-local maps.
+
+               The g:manpageview_K_<span class="Special">{ext}</span> specifies a function to be invoked
+               when the &quot;K&quot; key is tapped.  By default, it calls
+               s:ManPageView().
+
+               The g:manpageview_options_<span class="Special">{ext}</span> specifies what options are
+               needed.
+
+               The g:manpageview_pfx_<span class="Special">{ext}</span> specifies a prefix to prepend to
+               the nominal manpage name.
+
+               The g:manpageview_pgm_<span class="Special">{ext}</span> specifies which program to run for
+               help.
+
+               The g:manpageview_sfx_<span class="Special">{ext}</span> specifies a suffix to append to
+               the nominal manpage name.  Without this last option, the
+               provided suffix (ie. Man sprintf.pl 's  &quot;.pl&quot;) will be elided.
+               With this option, the g:manpageview_sfx_<span class="Special">{ext}</span> will be
+               appended.
+
+               The g:manpageview_syntax_<span class="Special">{ext}</span> specifies a highlighting file
+               to be used for this particular extension type.
+
+        You may map some key other than &quot;K&quot; to invoke ManPageView; as an
+        example:<span class="Ignore"> &gt;</span>
+<span class="Comment">               nmap V &lt;Plug&gt;ManPageView</span>
+<span class="Ignore">&lt;</span>       Put this in your &lt;.vimrc&gt;.
+
+
+<span class="PreProc">==============================================================================</span>
+<span class="Statement">4.</span><span class="PreProc"> ManPageView History</span>                 <span class="String">manpageview-history</span> <span class="Ignore">{{{1</span>
+
+        Thanks go to the various people who have contributed changes,
+        pointed out problems, and made suggestions!
+
+        v24: Jan 03, 2011  * some extra protection against trying to use
+                           a program that is not executable
+        v23: May 18, 2009  * on the third attempt to get a manpage, if
+                             the user provided no explicit
+                           <span class="Subtitle">g:manpageview_iconv</span> setting, then the
+                           an attempt is made with iconv off.
+                         * Fixed K mapping for php, tex, etc.
+                         * (in progress) KMan <span class="Special">[ext]</span> to set default
+                           extension for the K map
+             Oct 21, 2010  * added python help via pydoc (suffix: .py)
+             Oct 25, 2010  * Version 23 released
+        v22: Nov 10, 2008  * if g:manpageview_K_<span class="Special">{ext}</span> (ext is some
+                           extension) exists, previously that would
+                           be enough to institute a K map.  Now, if
+                           that string is &quot;&quot;, then the K map will not
+                           be generated.
+             Nov 17, 2008  * handles non-existing manpage requests better
+        v21: Sep 11, 2008  * when at a top node with info help, the up
+                           directory shows as &quot;(dir)&quot;.  A &quot;u&quot; issued a
+                           warning and closes the window.  It now issues
+                           a warning but leaves the window unchanged.
+                         * improved shellescape() use
+                         * new option: g:manpageview_multimanpage
+             Sep 27, 2008  * The K map now uses <span class="Special">&lt;cword&gt;</span> expansion except when
+                           used inside a manpage (where it uses <span class="Special">&lt;cWORD&gt;</span>).
+        v19: Jun 06, 2008  * uses the shellescape() function for better
+                           security.  Thus vim 7.1 is required.
+                         * when shellescape() isn't available, manpageview
+                           will only issue a warning message when invoked
+                           instead of every time vim is invoked.
+                         * syntax/manphp.vim was using &quot;set&quot; instead of
+                           &quot;setlocal&quot; and so new buffers were inadvertently
+                           being prevented from being modifiable.
+             Aug 05, 2008  * fixed a problem with using K multiple times with
+                           php files
+        v18: Jun 06, 2008  * <span class="Special">&lt;PageUp&gt;</span> and <span class="Special">&lt;PageDown&gt;</span> support added to jump
+                           between multiple man pages loaded into one buffer
+                           such as may occur with :Man -a printf
+                         * links -dump used instead of links for php
+        v17: Apr 18, 2007  * changed the topic cleanup to use 'g' instead
+                             of '' in the substitute().
+                         * Fixed bug with info pages - wasn't able to
+                           use the &gt; and &lt; maps to go to pages named
+                           with spaces.
+                         * Included the g:manpageview_iconv option
+             Sep 07, 2007  * viewing window now is read-only and swapfile
+                             is turned off
+             Sep 07, 2007  * The &quot;::&quot; in some help pages (ex. File::stat)
+                           was being parsed out, leaving only the left
+                           hand side word.  Manpageview now accepts them.
+             Nov 12, 2007  * At the request of F. Mehner, with
+                           g:manpageview_winopen is &quot;reuse&quot;, manpageview
+                           will re-use any man-page windows that are still
+                           open.
+                         * (F.Mehner) in &quot;reuse&quot; mode, a K on a blank
+                           character terminated vim.  Fixed!
+             May 09, 2008  * Added <span class="Special">&lt;PageUp&gt;</span> and <span class="Special">&lt;PageDown&gt;</span> maps
+        v16: Jun 28, 2006  * bypasses sxq with '&quot;' for windows internally
+             Sep 26, 2006  * implemented <span class="Special">&lt;count&gt;</span>K to look up a topic
+                             under the cursor but in the <span class="Special">&lt;count&gt;</span>-th book
+             Nov 21, 2006  * removed s:mank related code; man -k being
+                             handled without it.
+             Dec 04, 2006  * added fdc=0 to manpageview settings bypass
+             Feb 21, 2007  * removed modifications to isk; instead,
+                             manpageview attempts to fix the topic and
+                           uses expand(&quot;<span class="Special">&lt;cWORD&gt;</span>&quot;) instead:w
+        v15: Jan 23, 2006  * works around nomagic option
+                           * works around cwh=1 to avoid Hit-Enter prompts
+             Feb 13, 2006  * the test for keywordprg was for &quot;man&quot;; now its
+                             for a regular expression &quot;^man\&gt;&quot; (so its
+                             immune to the use of options)
+             Apr 11, 2006  * HMan, OMan, VMan, Rman commands implemented
+             Jun 27, 2006  * escaped any spaces coming from tempname()
+        v14: Nov 23, 2005  * &quot;only&quot; was occasionally issuing an &quot;Already one
+                             window&quot; message, which is now prevented
+             Nov 29, 2005  * Aaron Griffin found that setting gdefault
+                             gave manpageview problems with ctrl-hs.  Fixed.
+             Dec 16, 2005  * Suresh Govindachar asked about letting
+                             manpageview also handle perldoc -q manpages.
+                             IMHO this was getting cumbersome, so I extended
+                             opt to allow a semi-colon separated &quot;path&quot; of
+                             up to three options to try.
+             Dec 20, 2005  * In consultation with Gareth Oakes, manpageview
+                             needed some quoting and backslash-fixes to work
+                             properly with windows and perldoc.
+             Dec 29, 2005  * added links-based help for php functions
+
+        v13: Jul 19, 2005  * included niebie's changes to manpageview -
+                             <span class="Special">&lt;bs&gt;</span>, <span class="Special">&lt;del&gt;</span> to scroll one page up,
+                             <span class="Special">&lt;tab&gt;</span> to go to the next hyperlink
+                             d     to go to the top-level directory
+                             and some bugfixes ([] to \[ \], and redirecting
+                             stderr to /dev/null by default)
+             Aug 17, 2005  * report option workaround
+             Sep 26, 2005  * :Man -k  now uses &quot;man -k&quot; to generate a keyword
+                             listing
+                           * included syntax/man.vim and syntax/mankey.vim
+        v12: Jul 11, 2005  unmap K was causing &quot;noise&quot; when it was first
+                         used.  Fixed.
+        v11: * K now <span class="Special">&lt;buffer&gt;</span>-mapped to call ManPageView()
+        v10: * support for perl/perldoc:
+              g:manpageview_{ pgm<span class="Delimiter"> | </span>options<span class="Delimiter"> | </span>sfx }_{ extension }
+            * support for info: g:manpageview_{ K<span class="Delimiter"> | </span>pfx<span class="Delimiter"> | </span>syntax }
+            * configuration option drilling -- if you're in a
+              *.conf file, pressing &quot;K&quot; atop an option will go
+              to the associated help page and option, if there's
+              help for that configuration file
+        v9: * for vim versions &gt;= 6.3, keepjumps is used to reduce the
+              impact on the jumplist
+            * manpageview now turns off linewrap for the manpage, since
+              re-formatting doesn't seem to work usually.
+            * apparently some systems resize the [g]vim display when
+              any filter is used, including manpageview's :r!... .
+              Setting g:manpageview_dispresize=1 will force retention
+              of display size.
+            * before mapping K to use manpageview, a check that
+              keywordprg is &quot;man&quot; is also made. (tnx to Suresh Govindachar)
+        v8: * apparently bh=wipe is &quot;new&quot;, so I've put a version
+              test around that setting to allow older vim's to avoid
+              an error message
+            * manpageview now turns numbering off in the manpage buffer (nonu)
+        v7: * when a manpageview window is exit'd, it will be wiped out
+              so that it doesn't clutter the buffer list
+            * when g:manpageview_winopen was &quot;reuse&quot;, the manpage would
+              reuse the window, even when it wasn't a manpage window.
+              Manpageview will now use hsplit if the window was marked
+              &quot;modified&quot;; otherwise, the associated buffer will be marked
+              as &quot;hidden&quot; (so that its still available via the buffer list)
+        v6: * Erik Remmelzwal provided a fix to the g:manpageview_server
+              support for NT
+            * implemented Erik's suggestion to re-use manpage windows
+            * Nathan Huizinga pointed out, <span class="Special">&lt;cWORD&gt;</span> was picking up too much for
+              the K map. <span class="Special">&lt;cword&gt;</span> is now used
+            * Denilson F de Sa suggested that the man-page window be set as
+              readonly and nonmodifiable
+
+        v5: includes g:manpageview_winmethod option (only, hsplit, vsplit)
+
+        v4: Erik Remmelzwaal suggested including, for the benefit of NT users,
+            a command to use rsh to read the manpage remotely.  Set
+            g:manpageview_server to hostname  (in your &lt;.vimrc&gt;)
+            g:manpageview_user   to username
+
+        v3: * ignores (...) if it contains commas or double quotes.  elides
+              any commas, colons, and semi-colons at end
+
+            * g:manpageview_options supported
+
+        v2: saves current session prior to invoking man pages :Man    will
+            restore session.  Requires +mksession for this new command to
+            work.
+
+        v1: the epoch
+
+<span class="PreProc">==============================================================================</span>
+vim:tw=78:ts=8:ft=help:fdm=marker
+</pre>
+</body>
+</html>

@@ -1,0 +1,12 @@
+This is manpageview, which is just a copy of https://github.com/vim-scripts/ManPageView,
+except that it hasn't been "withdrawn."  Apparently the karma is low for the vim.org ManPageView
+page, so the author withdrew it.  Nope, doesn't make sense to me either!
+
+Here's the original copyright, taken from doc/manpageview.txt.html:
+
+Author:  Charles E. Campbell, Jr.  <NdrchipO@ScampbellPfamily.AbizM>
+          (remove NOSPAM from Campbell's email first)
+Copyright: (c) 2004-2011 by Charles E. Campbell, Jr.
+           The VIM LICENSE applies to ManPageView.vim and ManPageView.txt
+           (see copyright) except use 'ManPageView' instead of 'Vim'
+           no warranty, express or implied.  use at-your-own-risk.
